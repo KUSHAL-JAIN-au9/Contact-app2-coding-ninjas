@@ -1,0 +1,10 @@
+.root,
+.root,
+.root {
+  width: 100% !important;
+  height: 1500px;
+}
+
+.App {
+  height: 1000px;
+}
