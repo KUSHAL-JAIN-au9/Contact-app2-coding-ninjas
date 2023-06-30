@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import ListTable from "./components/ListTable";
 import Modal from "./components/Modal";
 import { ToastSucess } from "./utils/Toast";
+import { FormInputData } from "./data/data";
+import AddContact from "./pages/AddContact";
 
 function App() {
   const [contacts, setContacts] = useState([]);
@@ -67,9 +69,13 @@ function App() {
   console.log("updateFormFields", updateFormFields);
   return (
     <div className="App min-h-screen w-full  bg-amber-400 flex flex-col justify-start items-center">
-      <Header setmodalToggle={setmodalToggle} />
+      <Header
+        setmodalToggle={setmodalToggle}
+        setContacts={setContacts}
+        contacts={contacts}
+      />
 
-      <Modal
+      {/* <Modal
         setContacts={setContacts}
         id={contactId}
         setIsupdate={setIsupdate}
@@ -83,7 +89,17 @@ function App() {
         modalToggle={modalToggle}
         contacts={contacts}
         setIsEdit={setIsEdit}
+      /> */}
+
+      <AddContact
+        setContacts={setContacts}
+        contacts={contacts}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+        setFormState={setFormState}
+        formState={formState}
       />
+
       <ListTable
         contacts={contacts}
         handleEditcontact={handleEditcontact}

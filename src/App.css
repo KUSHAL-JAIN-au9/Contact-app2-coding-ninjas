@@ -8,3 +8,7 @@
 .App {
   height: 1000px;
 }
+
+.fluid-container {
+  height: 110vh;
+}

@@ -4,10 +4,28 @@ import App from "./App";
 import "./index.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RouterProvider, Routes, createBrowserRouter } from "react-router-dom";
+import AddContact from "./pages/AddContact";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "addContact",
+    element: <AddContact />,
+  },
+  {
+    path: "editContact",
+    element: <AddContact />,
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    <RouterProvider router={router} />
     <ToastContainer
       position="top-right"
       autoClose={5000}

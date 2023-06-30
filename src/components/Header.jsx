@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import AddContact from "../assets/add-contact.png";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Header = ({ setmodalToggle }) => {
+const Header = ({ contacts, setContacts }) => {
+  const [data, setdata] = useState({ contacts, isEdit: false, contact: null });
+  const history = useNavigate();
   return (
     <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white text-sm py-4 dark:bg-gray-800">
       <nav
@@ -19,9 +22,14 @@ const Header = ({ setmodalToggle }) => {
             <button
               type="button"
               className="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
-              data-hs-collapse="#navbar-with-collapse"
+              // data-hs-collapse="#navbar-with-collapse"
               aria-controls="navbar-with-collapse"
               aria-label="Toggle navigation"
+              onClick={() => {
+                window.addEventListener("open.hs.overlay", ($overlayEl) => {
+                  console.log($overlayEl);
+                });
+              }}
             >
               <svg
                 className="hs-collapse-open:hidden w-4 h-4"
@@ -69,13 +77,18 @@ const Header = ({ setmodalToggle }) => {
             <button
               type="button"
               class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-              data-hs-overlay="#hs-focus-management-modal"
+              // data-hs-overlay="#hs-focus-management-modal"
               onClick={() => {
-                setmodalToggle(false);
-                document.getElementsByTagName("input")[0].value = "";
-                document.getElementsByTagName("input")[1].value = "";
-                document.getElementsByTagName("input")[2].value = "";
-                document.getElementsByTagName("input")[3].value = "";
+                history("/addContact", {
+                  state: {
+                    ...data,
+                  },
+                });
+                // setmodalToggle(false);
+                // document.getElementsByTagName("input")[0].value = "";
+                // document.getElementsByTagName("input")[1].value = "";
+                // document.getElementsByTagName("input")[2].value = "";
+                // document.getElementsByTagName("input")[3].value = "";
               }}
             >
               <img

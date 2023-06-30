@@ -61,9 +61,6 @@ const Modal = ({
     setIsupdate(!isUpdate);
     setFormState({});
     setmodalToggle(false);
-    // return <Toaster />;
-
-    Toaster();
     setIsEdit(false);
   };
 
