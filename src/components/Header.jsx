@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AddContact from "../assets/add-contact.png";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const Header = ({ contacts, setContacts }) => {
+const Header = ({ contacts }) => {
   const [data, setdata] = useState({ contacts, isEdit: false, contact: null });
   const history = useNavigate();
   return (
@@ -74,7 +74,7 @@ const Header = ({ contacts, setContacts }) => {
               />
               Landing
             </a> */}
-            <button
+            {/* <button
               type="button"
               class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
               // data-hs-overlay="#hs-focus-management-modal"
@@ -84,11 +84,6 @@ const Header = ({ contacts, setContacts }) => {
                     ...data,
                   },
                 });
-                // setmodalToggle(false);
-                // document.getElementsByTagName("input")[0].value = "";
-                // document.getElementsByTagName("input")[1].value = "";
-                // document.getElementsByTagName("input")[2].value = "";
-                // document.getElementsByTagName("input")[3].value = "";
               }}
             >
               <img
@@ -99,7 +94,7 @@ const Header = ({ contacts, setContacts }) => {
                 height={20}
               />
               Add Contact
-            </button>
+            </button> */}
             {/* <div
               id="hs-vertically-centered-modal"
               class="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto"

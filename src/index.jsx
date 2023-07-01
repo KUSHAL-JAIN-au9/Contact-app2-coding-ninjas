@@ -9,16 +9,19 @@ import AddContact from "./pages/AddContact";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/Contact-app2-coding-ninjas/",
     element: <App />,
+    errorElement: <div>page not found</div>,
   },
   {
     path: "addContact",
     element: <AddContact />,
+    errorElement: <div>page not found</div>,
   },
   {
     path: "editContact",
     element: <AddContact />,
+    errorElement: <div>page not found</div>,
   },
 ]);
 

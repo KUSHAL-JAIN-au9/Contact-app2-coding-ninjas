@@ -55,6 +55,11 @@ function App() {
     const updatedContacts = contacts.filter((item) => item.id !== id);
 
     setContacts([...updatedContacts]);
+
+    document.getElementsByTagName("input")[0].value = "";
+    document.getElementsByTagName("input")[1].value = "";
+    document.getElementsByTagName("input")[2].value = "";
+    document.getElementsByTagName("input")[3].value = "";
     ToastSucess("Contact deleted sucessfully");
   };
 
@@ -68,7 +73,7 @@ function App() {
   console.log("contacts", contacts, contactId, isUpdate);
   console.log("updateFormFields", updateFormFields);
   return (
-    <div className="App min-h-screen w-full  bg-amber-400 flex flex-col justify-start items-center">
+    <div className="App  w-full bg-gradient-to-bl from-indigo-900 via-indigo-400 to-indigo-900    flex flex-col justify-start items-center">
       <Header
         setmodalToggle={setmodalToggle}
         setContacts={setContacts}

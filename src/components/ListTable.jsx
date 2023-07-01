@@ -46,7 +46,7 @@ const ListTable = ({
                       {item.phone}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                      {item?.address?.city || item.city}
+                      {item.city || item?.address?.city}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
                       <ModalBtnWrapper
