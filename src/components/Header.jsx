@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AddContact from "../assets/add-contact.png";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = ({ contacts }) => {
@@ -25,11 +24,6 @@ const Header = ({ contacts }) => {
               // data-hs-collapse="#navbar-with-collapse"
               aria-controls="navbar-with-collapse"
               aria-label="Toggle navigation"
-              onClick={() => {
-                window.addEventListener("open.hs.overlay", ($overlayEl) => {
-                  console.log($overlayEl);
-                });
-              }}
             >
               <svg
                 className="hs-collapse-open:hidden w-4 h-4"

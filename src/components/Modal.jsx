@@ -20,29 +20,15 @@ const Modal = ({
   useEffect(() => {}, [modalToggle, formState?.name, isEdit]);
   // useEffect(() => {}, []);
 
-  const getEditFields = () => {
-    console.log(updateFormFields);
-    return isEdit ? setFormState(...updateFormFields) : setFormState({});
-  };
-
-  console.log("id", id);
-  console.log("isEdit", isEdit);
-
   const handleFormContact = (e) => {
     const { value, name } = e.target;
-    console.log(name);
     const formData = { [name]: value };
-    console.log(formData);
-    console.log("id2", id);
     setFormState((currentData) => {
       return { ...currentData, [name]: value };
     });
   };
 
   const handleContactSubmit = (e) => {
-    console.log("hello", e);
-    console.log("all contacts after addine new ", formState, contacts);
-
     if (!isEdit) {
       setContacts((currentData) => {
         return [...currentData, { ...formState, id: id + 1 }];
@@ -53,7 +39,6 @@ const Modal = ({
       const editContactIndex = contacts.findIndex(
         (state) => state.id === formState.id
       );
-      console.log("edit index", editContactIndex);
       contacts[editContactIndex] = formState;
       ToastSucess("Contact updated sucessfully");
     }
@@ -64,7 +49,6 @@ const Modal = ({
     setIsEdit(false);
   };
 
-  console.log("formstate", formState);
   return (
     <div
       id={name}

@@ -29,28 +29,47 @@ function App() {
     let { data } = await axios.get(
       `https://jsonplaceholder.typicode.com/users`
     );
-    console.log(data, "rerender");
 
     setContacts(data);
     setContactId(data.length);
     setIsEdit(false);
   }, []);
 
-  const handleEditcontact = (id) => {
-    console.log("edit contact", id, contacts);
+  const deleteData = useCallback(async (id) => {
+    try {
+      let res = await axios.delete(
+        `https://jsonplaceholder.typicode.com/users/${id}`
+      );
+      console.log(res, "data is deleted");
+      return res;
+    } catch (err) {
+      if (err.response) {
+        // The client was given an error response (5xx, 4xx)
+        console.log(err.response);
+      } else if (err.request) {
+        // The client never received a response, and the request was never left
+        console.log(err.request);
+      } else {
+        // Anything else
+        console.log(err.message);
+      }
+      throw new Error("something went wrong", err?.message);
+    }
+  }, []);
 
+  const handleEditcontact = (id) => {
     const editContact = contacts.filter((item) => {
       return item.id === id;
     });
     setIsEdit(true);
     setmodalToggle(true);
-    console.log("edit contact is ==========", editContact[0]);
     setupdateFormFields(editContact[0]);
     setFormState(editContact[0]);
   };
 
-  const handleDeletecontact = (id) => {
-    console.log("delete contact", id);
+  const handleDeletecontact = async (id) => {
+    const { data } = await deleteData(id);
+    // console.log("response from server ========> ", data);
 
     const updatedContacts = contacts.filter((item) => item.id !== id);
 
@@ -63,15 +82,6 @@ function App() {
     ToastSucess("Contact deleted sucessfully");
   };
 
-  // const getContactList = async () => {
-  //   let { data } = await axios.get(
-  //     `https://jsonplaceholder.typicode.com/users`
-  //   );
-  //   console.log(data);
-  // };
-
-  console.log("contacts", contacts, contactId, isUpdate);
-  console.log("updateFormFields", updateFormFields);
   return (
     <div className="App  w-full bg-gradient-to-bl from-indigo-900 via-indigo-400 to-indigo-900    flex flex-col justify-start items-center">
       <Header
@@ -103,6 +113,7 @@ function App() {
         setIsEdit={setIsEdit}
         setFormState={setFormState}
         formState={formState}
+        contactId={contactId}
       />
 
       <ListTable

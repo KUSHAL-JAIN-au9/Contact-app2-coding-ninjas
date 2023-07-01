@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FormInputData } from "../data/data";
 import AddContactImg from "../assets/add-contact.png";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ToastSucess } from "../utils/Toast";
+import { ToastError, ToastSucess } from "../utils/Toast";
+import axios from "axios";
 
 const AddContact = ({
   setContacts,
@@ -11,47 +12,58 @@ const AddContact = ({
   setIsEdit,
   setFormState,
   formState,
+  contactId,
 }) => {
   //   const [formState, setFormState] = useState({});
 
-  useEffect(() => {
-    console.log("rerendered");
-  }, [isEdit, formState]);
+  useEffect(() => {}, [isEdit, formState]);
 
-  console.log(isEdit);
-  const history = useNavigate();
-  //   const {
-  //     state: { isEdit, contacts },
-  //   } = useLocation();
-
-  //   console.log(useLocation());
+  const postData = useCallback(async (body) => {
+    try {
+      let res = await axios(`https://jsonplaceholder.typicode.com/users`, {
+        ...body,
+      });
+      console.log(res, "data is added ");
+      return res;
+    } catch (err) {
+      throw new Error("something went wrong", error);
+    }
+  }, []);
 
   const handleFormContact = (e) => {
     const { value, name } = e.target;
-    console.log(name);
     const formData = { [name]: value };
-    console.log(formData);
-    // console.log("id2", id);
-    console.log("formstate", formState);
+
     setFormState((currentData) => {
       return { ...currentData, [name]: value };
     });
   };
 
-  const handleContactSubmit = (e) => {
-    console.log("hello", e);
-    console.log(
-      "all contacts after addine new ",
-      formState,
-      contacts[contacts.length - 1]
-    );
+  const updateData = useCallback(async (id) => {
+    try {
+      let res = await axios.put(
+        `https://jsonplaceholder.typicode.com/users/${id}`
+      );
+      // console.log(res, "data is updated");
+      return res;
+    } catch (error) {
+      ToastError(
+        "something went wrong you can only edit data in jsonplaceholder api data to "
+      );
+      throw new Error("something went wrong", error?.message);
+    }
+  }, []);
 
+  const handleContactSubmit = async (e) => {
     if (!isEdit) {
+      const { data } = await postData({
+        ...formState,
+        id: contactId + 1,
+      });
+      // console.log("response from server ========> ", data);
+
       setContacts((currentData) => {
-        return [
-          ...currentData,
-          { ...formState, id: contacts[contacts.length - 1] + 1 },
-        ];
+        return [...currentData, { ...formState, id: contactId + 1 }];
       });
 
       document.getElementsByTagName("input")[0].value = "";
@@ -62,10 +74,16 @@ const AddContact = ({
       ToastSucess("Contact added sucessfully");
     }
     if (isEdit) {
+      console.log(formState);
+      if (contacts.length <= 10) {
+        const { data } = await updateData(formState?.id);
+        // console.log("response from server ========> ", data);
+      }
+
       const editContactIndex = contacts.findIndex(
         (state) => state.id === formState.id
       );
-      console.log("edit index", editContactIndex);
+
       contacts[editContactIndex] = formState;
 
       document.getElementsByTagName("input")[0].value = "";
